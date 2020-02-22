@@ -66,9 +66,9 @@ struct Timer
 
     Time time;
 
-    void startTimer( Time time );
-    void stopTimer( Time time );
-    void resetTimer( Time time );
+    void startTimer();
+    void stopTimer();
+    void resetTimer();
 };
 
 /*
