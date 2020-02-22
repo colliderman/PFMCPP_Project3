@@ -64,6 +64,8 @@ struct Timer
         unsigned int seconds, minutes, hours;
     };
 
+    Time time;
+
     void startTimer( Time time );
     void stopTimer( Time time );
     void resetTimer( Time time );
