@@ -49,6 +49,7 @@ struct CarWash            //1) a U.D.T. with a random number of member variables
     Car myCar;  //5) a member variable whose type is a UDT.
 };
 
+#include <string>
 
 /*
  1)
@@ -63,9 +64,9 @@ struct Timer
         unsigned int seconds, minutes, hours;
     };
 
-    void startTimer( Time* time );
-    void stopTimer( Time* time );
-    void resetTimer( Time* time );
+    void startTimer( Time time );
+    void stopTimer( Time time );
+    void resetTimer( Time time );
 };
 
 /*
@@ -73,7 +74,7 @@ struct Timer
  */
 struct Dog
 {
-    char* name, breed;
+    std::string name, breed;
     bool isGoodBoy = true;
     int numBallsFetched = 0;
 
@@ -122,12 +123,12 @@ struct Tree
  */
 struct GuitarPedal
 {
-    char* nameOfPedal;
+    std::string nameOfPedal;
     int numOfKnobs;
     bool isModulation;
 
     void setPedalType( int pedalType );
-    char* getPedalName( GuitarPedal pedal );
+    std::string getPedalName( GuitarPedal pedal );
 
 
 };
