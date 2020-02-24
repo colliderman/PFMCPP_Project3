@@ -59,7 +59,7 @@ void Person::run( int howFast, bool startWithLeftFoot )
         rightFoot.stepForward();
         leftFoot.stepForward();
     }
-    distanceTravelled += leftFoot.stepSize() + rightFoot.stepSize();
+    distanceTravelled += leftFoot.stepSize() + rightFoot.stepSize() + howFast;
 }
  /*
  2) provide implementations for the member functions you declared in your 10 user-defined types from the previous video outside of your UDT definitions.
@@ -167,14 +167,7 @@ struct Dog
 
 void Dog::chaseCar ( CarWash::Car carToChase )
 {
-    if ( carToChase.isAPickupTruck )
-    {
-        this->chasingTheCar = true;
-    }
-    else
-    {
-        this->chasingTheCar = false;
-    }
+    chasingTheCar = carToChase.isAPickupTruck;
 }
 
 int Dog::fetchBall()
@@ -184,17 +177,9 @@ int Dog::fetchBall()
 }
 
 bool Dog::checkIfGoodBoy ( int numBallsFetched )
-{
-    this->numBallsFetched = numBallsFetched;
-    
-    if ( numBallsFetched > 0 )
-    {
-        this->isGoodBoy = true;
-    }
-    else
-    {
-        this->isGoodBoy = false; //just getting a feel for using 'this' keyword
-    }
+{    
+    isGoodBoy = numBallsFetched > 0;
+
     return isGoodBoy;
 }
 
@@ -240,16 +225,8 @@ float DrinkBeer::drinkBeer ( Beer beer )
 
 bool DrinkBeer::checkIfDrunk ( float numOfBeers )
 {
-    if ( numOfBeers >= 6.0f )
-    {
-        std::cout << "Yer drunk!" << std::endl;
-        isDrunk = true;
-    }
-    else 
-    {
-        std::cout << "Keep drinkin!" << std::endl;
-        isDrunk = false;
-    }
+    isDrunk = numOfBeers >= 6.f;
+    isDrunk ? std::cout << "Yer drunk!\n" : std::cout << "Keep drinkin!\n";
     return isDrunk;
 }
 
@@ -270,13 +247,14 @@ void Tree::climbTree ( float howHigh )
     if ( howHigh > this->height )
     {
         std::cout << "can't climb that high!" << std::endl;
-        return;
     }
-
-    for ( int i = 0; i < howHigh; i++)
+    else
     {
-        //climb the tree
-    }
+        for ( int i = 0; i < howHigh; i++)
+        {
+            //climb the tree
+        }
+    }    
 }
 
 /*
@@ -299,7 +277,7 @@ void GuitarPedal::setPedalType ( int pedalType )
         case 1: 
             typeOfPedal = "delay";
             break;
-        case2:
+        case 2:
             typeOfPedal = "tremolo";
             break;
     }
@@ -372,25 +350,14 @@ struct PatchCable
     int cableLength;
     bool isRightAngle;
 
-    int getCableLength( PatchCable cable);
+    int getCableLength();
     int setCableColour( int colour );
 };
 
-int PatchCable::getCableLength ( PatchCable cable )
+int PatchCable::getCableLength ()
 {
-    //return cable.cableLength;
-    //return this->cableLength;
-
-    /*
-    Ok, I totally understand what you were saying now in our previous slack
-    conversation. That by using 'PatchCable cable' as an argument to this function is
-    kind of pointless because if I want to return 'cableLength', I probably want to 
-    return the cableLength of the object that called it, not the cableLength of the 
-    argument to the function. This is where my C experience is kind of clouding what
-    object oriented programming is all about..if that makes sense. I get it now though!
-    */
+    return cableLength;
 }
-
 
 /*
  9)
@@ -401,15 +368,14 @@ struct PowerSupply
     int maxCurrentOutput;
     bool hasTransformer = false;
 
-    //I'm removing argument from this function now that I understand the error of my ways!
     void setPowerSupplySpecs();
 };
 
 void PowerSupply::setPowerSupplySpecs()
 {
-    this->voltage = 9.0f;
-    this->maxCurrentOutput = 300; //mA
-    this->hasTransformer = true;
+    voltage = 9.0f;
+    maxCurrentOutput = 300; //mA
+    hasTransformer = true;
 }
 
 /*
@@ -423,7 +389,6 @@ void PowerSupply::setPowerSupplySpecs()
     PatchCable  patchCable;
     PowerSupply powerSupply;
 
-    //removing argument here for reasons above 
     void setPedalOrder();
 
 };
