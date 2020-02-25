@@ -154,7 +154,7 @@ void Timer::Time::haltTime()
 struct Dog
 {
     std::string name, breed;
-    int numBallsFetched;
+    int numBallsFetched = 0;
     bool isGoodBoy = true;
     bool chasingTheCar = false;
 
@@ -188,7 +188,7 @@ bool Dog::checkIfGoodBoy ()
  */
 struct DrinkBeer
 {
-    float numBeersDrank;
+    float numBeersDrank = 0;
     bool isDrunk = false;
 
     struct Beer
@@ -196,7 +196,7 @@ struct DrinkBeer
         bool isStout = false;
         bool isMaltLiquor = false;
         bool isLightBeer = false;
-        float alcoholPercentage;
+        float alcoholPercentage = 0;
     };
 
     float drinkBeer( Beer beer );
@@ -235,8 +235,8 @@ bool DrinkBeer::checkIfDrunk ( float numOfBeers )
  */
 struct Tree
 {
-    float height;
-    int numBranches;
+    float height = 0;
+    int numBranches = 0;
 
     void climbTree( float howHigh );
     
@@ -263,8 +263,8 @@ void Tree::climbTree ( float howHigh )
 struct GuitarPedal
 {
     std::string nameOfPedal, typeOfPedal;
-    int numOfKnobs;
-    bool isModulation;
+    int numOfKnobs = 0;
+    bool isModulation = false;
 
     void setPedalType( int pedalType );
     std::string getPedalName();
@@ -301,7 +301,7 @@ std::string GuitarPedal::getPedalName ()
  */
 struct DelayPedal
 {
-    double delayTime, mix, feedback, tapSpeed;
+    double delayTime, mix, feedback, tapSpeed = 0;
     const int pedalType = 1;
     bool hasTapTempo = true;
 
@@ -324,7 +324,7 @@ void DelayPedal::setDelayTime ( double newDelayTime )
  */
 struct TremoloPedal
 {
-    double rate, rhythm, waveform, tapSpeed;
+    double rate, rhythm, waveform, tapSpeed = 0;
     const int pedalType = 2;
     bool hasTapTempo = true;
 
@@ -347,8 +347,8 @@ void TremoloPedal::setTremoloRate ( double newTremoloRate )
  */
 struct PatchCable
 {
-    int cableLength;
-    bool isRightAngle;
+    int cableLength = 0;
+    bool isRightAngle = 0;
 
     int getCableLength();
     int setCableColour( int colour );
@@ -364,8 +364,8 @@ int PatchCable::getCableLength ()
  */
 struct PowerSupply
 {
-    float voltage;
-    int maxCurrentOutput;
+    float voltage = 0;
+    int maxCurrentOutput = 0;
     bool hasTransformer = false;
 
     void setPowerSupplySpecs();
