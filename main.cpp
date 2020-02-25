@@ -162,7 +162,7 @@ struct Dog
 
     int fetchBall();
 
-    bool checkIfGoodBoy( int numBallsFetched );
+    bool checkIfGoodBoy();
 };
 
 void Dog::chaseCar ( CarWash::Car carToChase )
@@ -176,7 +176,7 @@ int Dog::fetchBall()
     return numBallsFetched;
 }
 
-bool Dog::checkIfGoodBoy ( int numBallsFetched )
+bool Dog::checkIfGoodBoy ()
 {    
     isGoodBoy = numBallsFetched > 0;
 
@@ -305,11 +305,11 @@ struct DelayPedal
     const int pedalType = 1;
     bool hasTapTempo = true;
 
-    void setTapTempo ( int multiplier, double tapSpeed );
+    void setTapTempo ( int multiplier );
     void setDelayTime ( double newDelayTime );
 };
 
-void DelayPedal::setTapTempo ( int multiplier, double tapSpeed )
+void DelayPedal::setTapTempo ( int multiplier )
 {
     delayTime = tapSpeed * multiplier;
 }
@@ -328,11 +328,11 @@ struct TremoloPedal
     const int pedalType = 2;
     bool hasTapTempo = true;
 
-    void setTapTempo ( int multiplier, double tapSpeed );
+    void setTapTempo ( int multiplier );
     void setTremoloRate ( double newTremoloRate );
 };
 
-void TremoloPedal::setTapTempo ( int multiplier, double tapSpeed )
+void TremoloPedal::setTapTempo ( int multiplier )
 {
     rate = tapSpeed * multiplier;
 }
