@@ -301,7 +301,7 @@ std::string GuitarPedal::getPedalName ()
  */
 struct DelayPedal
 {
-    double delayTime, mix, feedback, tapSpeed = 0;
+    double delayTime = 0, mix = 0, feedback = 0, tapSpeed = 0;
     const int pedalType = 1;
     bool hasTapTempo = true;
 
@@ -324,7 +324,7 @@ void DelayPedal::setDelayTime ( double newDelayTime )
  */
 struct TremoloPedal
 {
-    double rate, rhythm, waveform, tapSpeed = 0;
+    double rate = 0, rhythm = 0, waveform = 0, tapSpeed = 0;
     const int pedalType = 2;
     bool hasTapTempo = true;
 
