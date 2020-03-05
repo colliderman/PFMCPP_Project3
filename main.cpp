@@ -53,7 +53,6 @@ int main()
 
 
 #include <string>
-
 /*
  1)
  */
@@ -66,12 +65,19 @@ struct Timer
     struct Time
     {
         unsigned int seconds, minutes, hours;
+
+        Time() { seconds = 0; minutes = 0; hours = 0; }
+        ~Time(){}
         
         void increaseTime();
         void haltTime();
     };
 
     Time time;
+
+    Timer(){ isRunning = true; }
+    /*~Timer(){ std::cout << "\nThe timer has stopped. It took " << time.seconds << " seconds " << time.minutes << " minutes " << time.hours << " hours to run all those functions!" << std::endl; }
+    */
 
     void startTimer();
     void stopTimer();
@@ -98,7 +104,7 @@ void Timer::stopTimer()
 
 void Timer::Time::increaseTime()
 {
-    //do stuff
+    std::cout << "The timer is running." << std::endl;
 }
 
 void Timer::Time::haltTime()
@@ -116,16 +122,37 @@ struct Dog
     bool isGoodBoy = true;
     bool chasingTheCar = false;
 
-    void chaseCar( CarWash::Car carToChase );
+    Dog();
+
+    struct Car
+    {
+        bool isPickupTruck = false;
+    };
+
+    void printDogNameAndBreed();
+
+    void chaseCar( Dog::Car carToChase );
 
     int fetchBall();
 
     bool checkIfGoodBoy();
 };
 
-void Dog::chaseCar ( CarWash::Car carToChase )
+Dog::Dog ()
 {
-    chasingTheCar = carToChase.isAPickupTruck;
+    name = "Cooper";
+    breed = "Golden Retriever";
+}
+
+void Dog::printDogNameAndBreed()
+{
+    std::cout << "The dogs name is " << name << " and he is a " << breed << std::endl;
+}
+
+
+void Dog::chaseCar ( Dog::Car carToChase )
+{
+    chasingTheCar = carToChase.isPickupTruck;
 }
 
 int Dog::fetchBall()
@@ -146,8 +173,8 @@ bool Dog::checkIfGoodBoy ()
  */
 struct DrinkBeer
 {
-    float numBeersDrank = 0;
-    bool isDrunk = false;
+    float numBeersDrank;
+    bool isDrunk;
 
     struct Beer
     {
@@ -155,11 +182,15 @@ struct DrinkBeer
         bool isMaltLiquor = false;
         bool isLightBeer = false;
         float alcoholPercentage = 0;
+
+        Beer(){isMaltLiquor = true;}
     };
+
+    DrinkBeer() { numBeersDrank = 0; isDrunk = false; }
 
     float drinkBeer( Beer beer );
 
-    bool checkIfDrunk ( float numOfBeers );
+    bool checkIfDrunk();
 
     Beer stout, maltLiquor, lightBeer;
 };
@@ -168,22 +199,22 @@ float DrinkBeer::drinkBeer ( Beer beer )
 {
     if ( beer.isStout )
     {
-        numBeersDrank = 1.0f;
+        numBeersDrank += 1.0f;
     }
     else if ( beer.isMaltLiquor )
     {
-        numBeersDrank = 2.0f;
+        numBeersDrank += 2.0f;
     }
     else if ( beer.isLightBeer )
     {
-        numBeersDrank = 0.5f; 
+        numBeersDrank += 0.5f; 
     }
     return numBeersDrank;
 }
 
-bool DrinkBeer::checkIfDrunk ( float numOfBeers )
+bool DrinkBeer::checkIfDrunk ()
 {
-    isDrunk = numOfBeers >= 6.f;
+    isDrunk = numBeersDrank >= 6.f;
     isDrunk ? std::cout << "Yer drunk!\n" : std::cout << "Keep drinkin!\n";
     return isDrunk;
 }
@@ -196,23 +227,18 @@ struct Tree
     float height = 0;
     int numBranches = 0;
 
+    Tree(int a, int b){height = a; numBranches = b;}
+
     void climbTree( float howHigh );
     
 }; 
 
 void Tree::climbTree ( float howHigh )
 {
-    if ( howHigh > this->height )
+    for ( int i = 0; i < howHigh; i++)
     {
-        std::cout << "can't climb that high!" << std::endl;
+        i > height ? std::cout << "Can't climb any higher!" << std::endl : std::cout << "You've climbed " << i << " meters of the tree!" << std::endl;
     }
-    else
-    {
-        for ( int i = 0; i < howHigh; i++)
-        {
-            //climb the tree
-        }
-    }    
 }
 
 /*
@@ -221,12 +247,24 @@ void Tree::climbTree ( float howHigh )
 struct GuitarPedal
 {
     std::string nameOfPedal, typeOfPedal;
-    int numOfKnobs = 0;
+    int numOfKnobs = 0, order = 0;
     bool isModulation = false;
 
+    GuitarPedal( std::string type );
     void setPedalType( int pedalType );
     std::string getPedalName();
+    void printPedalName();
 };
+
+void GuitarPedal::printPedalName()
+{
+    std::cout << "This pedal is a " << getPedalName() << std::endl;
+}
+
+GuitarPedal::GuitarPedal ( std::string type )
+{
+    typeOfPedal = type;
+}
 
 void GuitarPedal::setPedalType ( int pedalType )
 {
@@ -251,6 +289,10 @@ std::string GuitarPedal::getPedalName ()
     {
         nameOfPedal = "Super Awesome Tremolo";
     }
+    else
+    {
+        nameOfPedal = "Invalid pedal name";
+    }
     return nameOfPedal;
 }
 
@@ -263,8 +305,10 @@ struct DelayPedal
     const int pedalType = 1;
     bool hasTapTempo = true;
 
+    DelayPedal ( double dt, double m, double fb ) : delayTime(dt), mix(m), feedback(fb) {}
     void setTapTempo ( int multiplier );
     void setDelayTime ( double newDelayTime );
+    double getDelayTime();
 };
 
 void DelayPedal::setTapTempo ( int multiplier )
@@ -277,27 +321,42 @@ void DelayPedal::setDelayTime ( double newDelayTime )
     delayTime = newDelayTime;
 }
 
+double DelayPedal::getDelayTime()
+{
+    std::cout << "The delay time is " << delayTime << std::endl;
+    return delayTime;
+}
+
 /*
  7)
  */
 struct TremoloPedal
 {
-    double rate = 0, rhythm = 0, waveform = 0, tapSpeed = 0;
+    double m_rate = 0, m_tapSpeed = 0;
+    int m_rhythm = 0, m_waveform;
     const int pedalType = 2;
     bool hasTapTempo = true;
 
+    TremoloPedal ( double rate, int rhythm, int waveform ) : m_rate(rate), m_rhythm(rhythm), m_waveform(waveform) {}
     void setTapTempo ( int multiplier );
     void setTremoloRate ( double newTremoloRate );
+    double getTremoloRate();
 };
+
+double TremoloPedal::getTremoloRate()
+{
+    std::cout << "The tremolo rate is " << m_rate << std::endl;
+    return m_rate;
+}
 
 void TremoloPedal::setTapTempo ( int multiplier )
 {
-    rate = tapSpeed * multiplier;
+    m_rate = m_tapSpeed * multiplier;
 }
 
 void TremoloPedal::setTremoloRate ( double newTremoloRate )
 {
-    rate = newTremoloRate;
+    m_rate = newTremoloRate;
 }
 
 /*
@@ -308,12 +367,14 @@ struct PatchCable
     int cableLength = 0;
     bool isRightAngle = 0;
 
+    PatchCable ( int length, bool rightAngle ) : cableLength(length), isRightAngle(rightAngle) {}
     int getCableLength();
     int setCableColour( int colour );
 };
 
 int PatchCable::getCableLength ()
-{
+{   
+    std::cout << "The length of the cable is " << cableLength << std::endl;
     return cableLength;
 }
 
@@ -324,16 +385,19 @@ struct PowerSupply
 {
     float voltage = 0;
     int maxCurrentOutput = 0;
-    bool hasTransformer = false;
+    bool DC = false;
 
-    void setPowerSupplySpecs();
+    PowerSupply(){}
+    PowerSupply ( float volts, int current, bool dc ) : voltage(volts), maxCurrentOutput(current), DC(dc) {}
+    void setPowerSupplySpecs( float v, int i, bool dc );
 };
 
-void PowerSupply::setPowerSupplySpecs()
+void PowerSupply::setPowerSupplySpecs ( float v, int i, bool dc )
 {
-    voltage = 9.0f;
-    maxCurrentOutput = 300; //mA
-    hasTransformer = true;
+    voltage = v;
+    maxCurrentOutput = i; //mA
+    DC = dc;
+    std::cout << "The power supply specs are: " << voltage << "V " << (DC ? "DC" : "AC") << " " << maxCurrentOutput << "mA" << std::endl;
 }
 
 /*
@@ -343,30 +407,88 @@ void PowerSupply::setPowerSupplySpecs()
 {
     GuitarPedal pedal1;
     GuitarPedal pedal2;
-    GuitarPedal pedal3;
     PatchCable  patchCable;
     PowerSupply powerSupply;
 
+    PedalBoard();
     void setPedalOrder();
 
 };
 
+PedalBoard::PedalBoard()
+: pedal1 ( "delay" ), pedal2 ( "tremolo" ), patchCable ( 2, true ), powerSupply ( 12.0f, 500, true )
+{
+}
+
 void PedalBoard::setPedalOrder()
 {
-    //would not be a very good function!
     if (pedal1.getPedalName() == "Super Awesome Delay")
     {
-        //pedalPosition = last;
+        pedal1.order = 1;
     }
-    else if ( pedal2.getPedalName() == "Super Awesome Tremolo")
+    if ( pedal2.getPedalName() == "Super Awesome Tremolo")
     {
-        //pedalPosition = first;
+        pedal2.order = 0;
     }
-    //etc.
+    std::cout << "The pedal order is " << pedal1.nameOfPedal << (pedal1.order == 0 ? " first " : " last ") << pedal2.nameOfPedal << (pedal2.order == 0 ? " first" : " last") << std::endl;
+}
+
+void printFunctionNumber ( int number )
+{
+    std::cout << "\n" << number << ")\n";
 }
 
 int main()
 {
     Example::main();
+
+    printFunctionNumber(1);
+    Timer t;
+    t.time.increaseTime();
+
+    printFunctionNumber(2);
+    Dog dog;
+    dog.printDogNameAndBreed();
+
+    printFunctionNumber(3);
+    DrinkBeer db;
+    DrinkBeer::Beer maltLiquor;
+    while (!db.isDrunk){
+        db.drinkBeer(maltLiquor);
+        db.checkIfDrunk();
+    }
+
+    printFunctionNumber(4);
+    Tree tree(5, 20);
+    tree.climbTree(7);
+
+    printFunctionNumber(5);
+    GuitarPedal delayPedal ( "delay" );
+    GuitarPedal tremoloPedal ( "tremolo" );
+    delayPedal.printPedalName();
+    tremoloPedal.printPedalName();
+
+    printFunctionNumber(6);
+    DelayPedal delay (0.2, 0.15, 0.3);
+    delay.getDelayTime();
+
+    printFunctionNumber(7);
+    TremoloPedal tremolo (0.75, 1, 3);
+    tremolo.getTremoloRate();
+
+    printFunctionNumber(8);
+    PatchCable cable1 ( 3, true );
+    PatchCable cable2 ( 6, false );
+    cable1.getCableLength();
+    cable2.getCableLength();
+
+    printFunctionNumber(9);
+    PowerSupply ps;
+    ps.setPowerSupplySpecs(9.0f, 300, true);
+
+    printFunctionNumber(10);
+    PedalBoard pb;
+    pb.setPedalOrder();
+
     std::cout << "good to go!" << std::endl;
 }
