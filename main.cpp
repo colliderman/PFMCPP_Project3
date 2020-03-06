@@ -61,7 +61,7 @@ struct Timer
     {
         unsigned int seconds, minutes, hours;
 
-        Time() { seconds = 0; minutes = 0; hours = 0; }
+        Time() : seconds(0), minutes (0), hours (0) {}
         ~Time(){}
         
         void increaseTime();
@@ -222,7 +222,7 @@ struct Tree
     float height = 0;
     int numBranches = 0;
 
-    Tree(int a, int b){height = a; numBranches = b;}
+    Tree(int a, int b) : height(a), numBranches(b){}
 
     void climbTree( float howHigh );
     
