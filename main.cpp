@@ -61,7 +61,7 @@ struct Timer
     {
         unsigned int seconds, minutes, hours;
 
-        Time() { seconds = 0; minutes = 0; hours = 0; }
+        Time() : seconds(0), minutes (0), hours (0) {}
         ~Time(){}
         
         void increaseTime();
@@ -222,7 +222,7 @@ struct Tree
     float height = 0;
     int numBranches = 0;
 
-    Tree(int a, int b){height = a; numBranches = b;}
+    Tree(int a, int b) : height(a), numBranches(b){}
 
     void climbTree( float howHigh );
     
@@ -271,6 +271,8 @@ void GuitarPedal::setPedalType ( int pedalType )
         case 2:
             typeOfPedal = "tremolo";
             break;
+        default:
+            std::cout << "could not set pedal type" << std::endl;
     }
 }
 
@@ -327,12 +329,12 @@ double DelayPedal::getDelayTime()
  */
 struct TremoloPedal
 {
-    double m_rate = 0, m_tapSpeed = 0;
-    int m_rhythm = 0, m_waveform;
+    double rate = 0, tapSpeed = 0;
+    int rhythm = 0, waveform;
     const int pedalType = 2;
     bool hasTapTempo = true;
 
-    TremoloPedal ( double rate, int rhythm, int waveform ) : m_rate(rate), m_rhythm(rhythm), m_waveform(waveform) {}
+    TremoloPedal ( double rate_, int rhythm_, int waveform_ ) : rate(rate_), rhythm(rhythm_), waveform(waveform_) {}
     void setTapTempo ( int multiplier );
     void setTremoloRate ( double newTremoloRate );
     double getTremoloRate();
@@ -340,18 +342,18 @@ struct TremoloPedal
 
 double TremoloPedal::getTremoloRate()
 {
-    std::cout << "The tremolo rate is " << m_rate << std::endl;
-    return m_rate;
+    std::cout << "The tremolo rate is " << rate << std::endl;
+    return rate;
 }
 
 void TremoloPedal::setTapTempo ( int multiplier )
 {
-    m_rate = m_tapSpeed * multiplier;
+    rate = tapSpeed * multiplier;
 }
 
 void TremoloPedal::setTremoloRate ( double newTremoloRate )
 {
-    m_rate = newTremoloRate;
+    rate = newTremoloRate;
 }
 
 /*
@@ -398,7 +400,7 @@ void PowerSupply::setPowerSupplySpecs ( float v, int i, bool dc )
 /*
  10)
  */
- struct PedalBoard
+struct PedalBoard
 {
     GuitarPedal pedal1;
     GuitarPedal pedal2;
